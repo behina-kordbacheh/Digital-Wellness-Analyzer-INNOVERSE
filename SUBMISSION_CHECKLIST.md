@@ -1,0 +1,25 @@
+# Final Submission Checklist
+
+- [x] Python source code included
+- [x] English code comments
+- [x] HTML/CSS/JavaScript UI included
+- [x] Trained classifier included
+- [x] Calibrated scoring model included
+- [x] Regression model included
+- [x] K-Means clustering included
+- [x] SHAP explainability included
+- [x] Target leakage removed
+- [x] Smart recommendation engine included
+- [x] Focus-software suggestions included
+- [x] PDF report generation included
+- [x] Local next check-in included
+- [x] Manual Telegram sharing included
+- [x] Local SQLite history included
+- [x] Risk / balance charts included
+- [x] Recommendation Acceptance Rate included
+- [x] User Satisfaction Score included
+- [x] Scroll-lock/scroll-trap handlers removed
+- [x] No cloud API required
+- [x] Sample PDF report included
+- [x] Reproducible training script included
+- [x] Pre-submission verification script included

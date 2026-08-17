@@ -1,0 +1,31 @@
+{
+  "project": "Digital Wellness Analyzer",
+  "competition": "Innoverse 2026",
+  "architecture": "Local Flask + HTML/CSS/JavaScript + scikit-learn + SQLite",
+  "cloud_api_required": false,
+  "features": [
+    "Random Forest classification",
+    "Tuned decision threshold",
+    "Isotonic Model Risk Score",
+    "Random Forest weekend screen-time regression",
+    "K-Means behavior clustering",
+    "SHAP explainability",
+    "Dataset-relative percentiles",
+    "Context-aware wellness recommendations",
+    "Focus-software recommendations",
+    "PDF report export",
+    "Local next check-in",
+    "Manual Telegram summary sharing",
+    "Local SQLite history",
+    "Daily/weekly/monthly local analytics",
+    "Recommendation Acceptance Rate",
+    "User Satisfaction Score",
+    "Risk and time-balance charts",
+    "Responsive UI with native scrolling",
+    "Local username/password accounts with salted password hashing",
+    "User-isolated longitudinal history",
+    "30-day check-in consistency and explicit missing-day tracking",
+    "90-day missing-aware trend charts",
+    "Returning-user form restoration"
+  ]
+}
