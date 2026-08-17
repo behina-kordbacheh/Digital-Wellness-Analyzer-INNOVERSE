@@ -1,0 +1,92 @@
+{
+  "ambient.wav": {
+    "seconds": 20.0,
+    "sample_rate": 22050,
+    "channels": 1,
+    "size_kb": 861.4
+  },
+  "birds_only.wav": {
+    "seconds": 24.0,
+    "sample_rate": 22050,
+    "channels": 1,
+    "size_kb": 1033.6
+  },
+  "brown.wav": {
+    "seconds": 20.0,
+    "sample_rate": 22050,
+    "channels": 1,
+    "size_kb": 861.4
+  },
+  "drizzle.wav": {
+    "seconds": 24.0,
+    "sample_rate": 22050,
+    "channels": 1,
+    "size_kb": 1033.6
+  },
+  "forest.wav": {
+    "seconds": 20.0,
+    "sample_rate": 22050,
+    "channels": 1,
+    "size_kb": 861.4
+  },
+  "gentle_stream.wav": {
+    "seconds": 24.0,
+    "sample_rate": 22050,
+    "channels": 1,
+    "size_kb": 1033.6
+  },
+  "gentle_waterfall.wav": {
+    "seconds": 24.0,
+    "sample_rate": 22050,
+    "channels": 1,
+    "size_kb": 1033.6
+  },
+  "ocean.wav": {
+    "seconds": 20.0,
+    "sample_rate": 22050,
+    "channels": 1,
+    "size_kb": 861.4
+  },
+  "pink.wav": {
+    "seconds": 20.0,
+    "sample_rate": 22050,
+    "channels": 1,
+    "size_kb": 861.4
+  },
+  "rain.wav": {
+    "seconds": 20.0,
+    "sample_rate": 22050,
+    "channels": 1,
+    "size_kb": 861.4
+  },
+  "rain_ground.wav": {
+    "seconds": 24.0,
+    "sample_rate": 22050,
+    "channels": 1,
+    "size_kb": 1033.6
+  },
+  "rain_leaves.wav": {
+    "seconds": 24.0,
+    "sample_rate": 22050,
+    "channels": 1,
+    "size_kb": 1033.6
+  },
+  "speaker_test.wav": {
+    "seconds": 1.2,
+    "sample_rate": 22050,
+    "channels": 1,
+    "size_kb": 51.7
+  },
+  "waterfall.wav": {
+    "seconds": 20.0,
+    "sample_rate": 22050,
+    "channels": 1,
+    "size_kb": 861.4
+  },
+  "white.wav": {
+    "seconds": 20.0,
+    "sample_rate": 22050,
+    "channels": 1,
+    "size_kb": 861.4
+  }
+}
