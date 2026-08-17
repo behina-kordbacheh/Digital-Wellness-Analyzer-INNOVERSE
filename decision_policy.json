@@ -1,0 +1,5 @@
+{
+  "decision_threshold": 0.78,
+  "selection_metric": "locked_development_threshold",
+  "source": "prior_development_policy"
+}

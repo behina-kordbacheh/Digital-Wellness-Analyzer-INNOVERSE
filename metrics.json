@@ -1,0 +1,37 @@
+{
+  "classifier": {
+    "decision_threshold": 0.78,
+    "accuracy": 0.9376,
+    "balanced_accuracy": 0.9553799800878993,
+    "precision_class_1": 0.9991749174917491,
+    "recall_class_1": 0.9125847776940467,
+    "macro_f1": 0.9286522487022434,
+    "roc_auc": 0.9889452087195199,
+    "average_precision": 0.9955845424533944,
+    "brier_score": 0.03593482446074855,
+    "evaluation": "Fixed 5-fold stratified out-of-fold probabilities; decision threshold locked at 0.78 from prior development rather than re-optimized on the final OOF predictions.",
+    "train_roc_auc": 0.9999998281068653,
+    "train_balanced_accuracy_at_threshold": 0.9577053504144688,
+    "roc_auc_generalization_gap": 0.011054619387345421,
+    "balanced_accuracy_generalization_gap": 0.0023253703265695425,
+    "regularization": {
+      "max_depth": 20,
+      "min_samples_leaf": 2,
+      "n_estimators": 300
+    }
+  },
+  "calibrated_classifier": {
+    "purpose": "Used only for the displayed Model Risk Score; the Random Forest probability and locked threshold determine the risk class.",
+    "method": "isotonic",
+    "cv": 5
+  },
+  "regressor": {
+    "mae": 0.6311059444444445,
+    "rmse": 0.7401183378258581,
+    "r2": 0.9264819481840947
+  },
+  "clustering": {
+    "n_clusters": 4,
+    "silhouette_score": 0.10689521359163584
+  }
+}

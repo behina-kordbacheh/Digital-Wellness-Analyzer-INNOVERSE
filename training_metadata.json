@@ -1,0 +1,34 @@
+{
+  "trained_at_utc": "2026-08-17T01:47:16.578875+00:00",
+  "model_random_state": 42,
+  "evaluation_random_state": 2026,
+  "dataset_rows": 7500,
+  "classification_features": [
+    "age",
+    "gender",
+    "daily_screen_time_hours",
+    "social_media_hours",
+    "gaming_hours",
+    "work_study_hours",
+    "sleep_hours",
+    "notifications_per_day",
+    "app_opens_per_day",
+    "weekend_screen_time",
+    "stress_level",
+    "academic_work_impact"
+  ],
+  "decision_threshold": 0.78,
+  "leakage_columns_excluded": [
+    "transaction_id",
+    "user_id",
+    "addiction_level"
+  ],
+  "notes": [
+    "Random Forest is the primary classifier.",
+    "Classifier regularization uses max_depth=20 and min_samples_leaf=2 to reduce train-vs-OOF overfitting while preserving validation performance.",
+    "The classification decision threshold is locked at 0.78 and is not re-optimized on the final OOF predictions.",
+    "Isotonic calibration is used for the displayed Model Risk Score.",
+    "The score is not a medical probability or diagnosis.",
+    "LSTM is not used because the provided dataset does not contain true per-user longitudinal sequences."
+  ]
+}

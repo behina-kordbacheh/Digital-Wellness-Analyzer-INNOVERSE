@@ -1,0 +1,38 @@
+{
+  "method": "GridSearchCV",
+  "purpose": "Classifier hyperparameter verification; this does not replace the final out-of-fold evaluation.",
+  "dataset_rows": 7500,
+  "cv": "3-fold StratifiedKFold, shuffle=True, random_state=2026",
+  "scoring": "roc_auc",
+  "searched_parameters": {
+    "n_estimators": [
+      200,
+      300
+    ],
+    "max_depth": [
+      null,
+      20
+    ],
+    "min_samples_leaf": [
+      1,
+      2,
+      4
+    ]
+  },
+  "best_params": {
+    "n_estimators": 300,
+    "max_depth": 20,
+    "min_samples_leaf": 4
+  },
+  "best_mean_cv_roc_auc": 0.9891185116273263,
+  "baseline_like_mean_cv_roc_auc": 0.988952,
+  "absolute_gain_vs_baseline_like": 0.0001665,
+  "interpretation": "The grid search confirms that Random Forest performance is stable near the current configuration. The improvement from the best grid point is extremely small, so hyperparameter tuning is not the main reason for the strong classifier performance.",
+  "important_note": "GridSearchCV is a tuning/robustness check. Final reported classifier metrics come from metrics.json using fixed 5-fold OOF probabilities and a locked 0.78 decision threshold.",
+  "deployed_regularized_params": {
+    "n_estimators": 300,
+    "max_depth": 20,
+    "min_samples_leaf": 2
+  },
+  "deployment_rationale": "The 3-fold AUC optimum used min_samples_leaf=4, but the regularized settings were on a near-flat performance plateau. The deployed leaf size 2 retained slightly stronger fixed 5-fold OOF ROC-AUC/AP and lower Brier score while reducing the train-vs-OOF balanced-accuracy gap from about 3.5 percentage points in the earlier unrestricted model to about 0.23 percentage points."
+}
