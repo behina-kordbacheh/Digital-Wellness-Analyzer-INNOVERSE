@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Wellness Analyzer • Video Demo</title>
+    <style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#f4f7fb;color:#102033;font-family:Inter,Arial,sans-serif}
+.scene{
+    width:100vw;height:100vh;min-height:720px;padding:7vh 7vw;position:relative;overflow:hidden;
+    background:
+      radial-gradient(circle at 100% 0,rgba(49,197,157,.08),transparent 32%),
+      #f6f8fb;
+}
+.scene:nth-child(even){background:#0c2a43;color:#fff}
+.brand,.eyebrow{font-size:14px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+.brand{color:#0d2c47}.eyebrow{color:#2aa381}
+.scene:nth-child(even) .eyebrow{color:#7de0c4}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:7vw;align-items:center;height:82%}
+h1{margin:18px 0 22px;color:#0d2c47;font-size:82px;line-height:.94;letter-spacing:-.06em}
+h1 b,.scene-end h2 b{color:#31c59d}
+.hero-grid>div:first-child p{max-width:760px;color:#63778a;font-size:23px;line-height:1.6}
+.phone-card{justify-self:end;width:470px;padding:38px;border-radius:34px;background:#102f49;color:white;box-shadow:0 40px 90px rgba(15,40,65,.22)}
+.phone-top{color:#acc1d0;font-size:15px}
+.big-ring{width:230px;height:230px;display:grid;place-items:center;margin:42px auto;border-radius:50%;background:conic-gradient(#31c59d 64%,rgba(255,255,255,.12) 0)}
+.big-ring:after{content:"";position:absolute;width:185px;height:185px;border-radius:50%;background:#102f49}
+.big-ring>div{z-index:1;text-align:center}
+.big-ring strong{display:block;font-size:55px}.big-ring span{color:#9fb5c5;font-size:13px}
+.phone-insight{padding:18px;border-radius:16px;background:rgba(255,255,255,.07);color:#d8e5ed;font-size:16px;line-height:1.45}
+h2{margin:18px 0 45px;font-size:63px;line-height:1.02;letter-spacing:-.055em}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.problem-grid>div,.report-card,.tool-grid>div,.loop-grid>div{
+    padding:30px;border:1px solid rgba(160,190,220,.2);border-radius:24px;background:rgba(255,255,255,.07)
+}
+.problem-grid span{color:#7de0c4;font-weight:900}.problem-grid h3{font-size:25px}.problem-grid p{color:#aec0cd;font-size:16px;line-height:1.5}
+.pipeline{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:70px}
+.pipeline>div{width:190px;min-height:145px;padding:22px;border-radius:22px;background:white;border:1px solid #dfe6ee;color:#102033}
+.pipeline b{width:31px;height:31px;display:grid;place-items:center;border-radius:10px;background:#e9fbf5;color:#26856c;font-size:12px}
+.pipeline strong{display:block;margin-top:17px;font-size:17px}.pipeline span{display:block;margin-top:5px;color:#7d8e9e;font-size:12px}
+.pipeline i{color:#9eb0c0;font-style:normal;font-size:26px}
+.metrics-strip{display:flex;justify-content:center;gap:12px;margin-top:55px}
+.metrics-strip>div{min-width:220px;padding:18px 22px;border-radius:16px;background:white;border:1px solid #dfe6ee}
+.metrics-strip strong{display:block;color:#0d2c47;font-size:27px}.metrics-strip span{color:#8191a0;font-size:11px}
+.report-head{display:flex;justify-content:space-between;align-items:end}.report-head h2{margin-bottom:7px}.report-head p{color:#a9bdcc}
+.score-pill{padding:15px 20px;border-radius:999px;background:#fff0f2;color:#b54a5a;font-weight:900}
+.report-grid{display:grid;grid-template-columns:1.5fr .75fr .75fr;gap:18px;margin-top:42px}
+.report-card{background:rgba(255,255,255,.075);min-height:280px}
+.report-card small{color:#7de0c4;font-weight:900;letter-spacing:.1em}
+.factor{display:flex;justify-content:space-between;padding:17px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:17px}
+.factor b.up{color:#ff8495}.factor b.down{color:#68e0b9}.forecast{display:block;margin-top:62px;font-size:48px}.report-card p{color:#a9bdcc}
+.action-layout{display:grid;grid-template-columns:.6fr 1.4fr;gap:35px}
+.action-context{display:flex;align-content:start;flex-wrap:wrap;gap:10px}
+.action-context span{padding:12px 16px;border:1px solid #dfe6ee;border-radius:999px;background:white;color:#53687b;font-size:13px}
+.actions{display:grid;gap:13px}
+.actions>div{display:grid;grid-template-columns:50px 120px 1fr;align-items:center;gap:15px;padding:19px 22px;border:1px solid #dfe6ee;border-radius:18px;background:white}
+.actions b{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:#e9fbf5;color:#26856c}.actions span{color:#2d987c;font-size:12px;font-weight:900}.actions p{margin:0;color:#52687b;font-size:16px}
+.tool-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:55px}
+.tool-grid>div{min-height:240px}.tool-grid b{width:50px;height:50px;display:grid;place-items:center;border-radius:15px;background:#31c59d;color:#0c2a43}.tool-grid strong{display:block;margin-top:30px;font-size:22px}.tool-grid p{color:#abc0ce;line-height:1.5}
+.loop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:55px}.loop-grid>div{background:white;color:#102033}.loop-grid span{color:#2b9e80;font-weight:900}.loop-grid strong{display:block;margin-top:25px;font-size:25px}.loop-grid p{color:#7c8c9c}
+.scene-end{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#f6f8fb!important;color:#102033!important}
+.end-mark{width:90px;height:90px;display:grid;place-items:center;border-radius:27px;background:#0d2c47;color:white;font-size:32px;font-weight:900;margin-bottom:28px}
+.scene-end h2{margin:18px 0 20px;font-size:75px}.scene-end p{color:#718496;font-size:18px}.closing-pill{margin-top:30px;padding:14px 20px;border-radius:999px;background:#e9fbf5;color:#277b66;font-weight:900}
+</style>
+</head>
+<body>
+
+<section class="scene scene-hero" id="scene1">
+    <div class="brand">WELLBEING AI</div>
+    <div class="hero-grid">
+        <div>
+            <span class="eyebrow">INNOVERSE 2026</span>
+            <h1>Less scrolling.<br><b>More living.</b></h1>
+            <p>An explainable machine-learning system that turns digital behavior into a realistic action plan.</p>
+        </div>
+        <div class="phone-card">
+            <div class="phone-top">Digital balance</div>
+            <div class="big-ring"><div><strong>64</strong><span>Balance</span></div></div>
+            <div class="phone-insight">Evening social media is your best opportunity to improve.</div>
+        </div>
+    </div>
+</section>
+
+<section class="scene" id="scene2">
+    <span class="eyebrow">THE PROBLEM</span>
+    <h2>Most wellness tools stop at<br>“use your phone less.”</h2>
+    <div class="problem-grid">
+        <div><span>01</span><h3>Screen time alone is not enough.</h3><p>Work, entertainment, rest and social habits need context.</p></div>
+        <div><span>02</span><h3>Black-box scores do not build trust.</h3><p>Users need to understand what actually influenced the model.</p></div>
+        <div><span>03</span><h3>Restriction is not a behavior plan.</h3><p>We recommend what the user can realistically do instead.</p></div>
+    </div>
+</section>
+
+<section class="scene" id="scene3">
+    <span class="eyebrow">THE AI PIPELINE</span>
+    <h2>Five intelligence layers.<br>One clear decision.</h2>
+    <div class="pipeline">
+        <div><b>1</b><strong>Classification</strong><span>Risk pattern</span></div>
+        <i>→</i>
+        <div><b>2</b><strong>Regression</strong><span>Weekend estimate</span></div>
+        <i>→</i>
+        <div><b>3</b><strong>Clustering</strong><span>User segment</span></div>
+        <i>→</i>
+        <div><b>4</b><strong>SHAP</strong><span>Why this result?</span></div>
+        <i>→</i>
+        <div><b>5</b><strong>Recommendation</strong><span>What next?</span></div>
+    </div>
+    <div class="metrics-strip">
+        <div><strong>0.9889</strong><span>ROC-AUC</span></div>
+        <div><strong>0.9554</strong><span>Balanced Accuracy</span></div>
+        <div><strong>0.9956</strong><span>Average Precision</span></div>
+    </div>
+</section>
+
+<section class="scene" id="scene4">
+    <span class="eyebrow">LIVE USER ANALYSIS</span>
+    <div class="report-head">
+        <div><h2>Higher-risk digital usage pattern</h2><p>Model score with transparent evidence.</p></div>
+        <div class="score-pill">86% model risk</div>
+    </div>
+
+    <div class="report-grid">
+        <div class="report-card factors">
+            <small>TOP MODEL FACTORS</small>
+            
+            <div class="factor">
+                <span>Daily Screen Time Hours</span>
+                <b class="up">
+                    +0.377
+                </b>
+            </div>
+            
+            <div class="factor">
+                <span>Weekend Screen Time</span>
+                <b class="up">
+                    +0.173
+                </b>
+            </div>
+            
+            <div class="factor">
+                <span>Social Media Hours</span>
+                <b class="up">
+                    +0.091
+                </b>
+            </div>
+            
+            <div class="factor">
+                <span>Sleep Hours</span>
+                <b class="down">
+                    -0.041
+                </b>
+            </div>
+            
+        </div>
+
+        <div class="report-card">
+            <small>WEEKEND SCREEN-TIME ESTIMATE</small>
+            <strong class="forecast">11.7h</strong>
+            <p>Estimated weekend screen time from the current behavior profile.</p>
+        </div>
+
+        <div class="report-card">
+            <small>BEHAVIOR SEGMENT</small>
+            <strong class="forecast">Cluster 2</strong>
+            <p>K-Means behavioral segmentation.</p>
+        </div>
+    </div>
+</section>
+
+<section class="scene" id="scene5">
+    <span class="eyebrow">FROM INSIGHT TO ACTION</span>
+    <h2>We don't just tell the user<br>what to stop doing.</h2>
+
+    <div class="action-layout">
+        <div class="action-context">
+            <span>Student</span>
+            <span>30 minutes</span>
+            <span>Reduce social media</span>
+            <span>Evening</span>
+        </div>
+
+        <div class="actions">
+            
+            <div><b>1</b><span>Physical</span><p>Take a 30-minute phone-free walk and use the first five minutes to reset your attention.</p></div>
+            
+            <div><b>2</b><span>Learning</span><p>Review one study topic or flashcard set away from social feeds.</p></div>
+            
+            <div><b>3</b><span>Social</span><p>Call or meet one friend intentionally instead of opening a passive feed.</p></div>
+            
+        </div>
+    </div>
+</section>
+
+<section class="scene" id="scene6">
+    <span class="eyebrow">SMART SUPPORT</span>
+    <h2>Practical tools, not dependency.</h2>
+    <div class="tool-grid">
+        <div><b>F</b><strong>Forest</strong><p>Focus timer for intentional work sessions.</p></div>
+        <div><b>Fr</b><strong>Freedom</strong><p>Block distracting apps and websites.</p></div>
+        <div><b>C</b><strong>Cold Turkey</strong><p>Strong distraction blocking when extra friction is needed.</p></div>
+        <div><b>1s</b><strong>one sec</strong><p>Add a pause before opening distracting apps.</p></div>
+    </div>
+</section>
+
+<section class="scene" id="scene7">
+    <span class="eyebrow">CONTINUOUS WELLNESS</span>
+    <h2>One check-in becomes a habit loop.</h2>
+    <div class="loop-grid">
+        <div><span>01</span><strong>Analyze</strong><p>Digital behavior report</p></div>
+        <div><span>02</span><strong>Act</strong><p>Daily replacement challenge</p></div>
+        <div><span>03</span><strong>Review</strong><p>PDF report and next check-in</p></div>
+        <div><span>04</span><strong>Improve</strong><p>History and recommendation acceptance</p></div>
+    </div>
+</section>
+
+<section class="scene scene-end" id="scene8">
+    <div class="end-mark">W</div>
+    <span class="eyebrow">DIGITAL WELLNESS ANALYZER</span>
+    <h2>Explain the habit.<br><b>Improve the next choice.</b></h2>
+    <p>Classification • Regression • Clustering • SHAP • Personalized Recommendations</p>
+    <div class="closing-pill">Built for healthier, sustainable digital behavior.</div>
+</section>
+
+</body>
+</html>
