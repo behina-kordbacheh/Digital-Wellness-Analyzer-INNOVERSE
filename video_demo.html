@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Wellness Analyzer • Video Demo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='video.css') }}">
+</head>
+<body>
+
+<section class="scene scene-hero" id="scene1">
+    <div class="brand">WELLBEING AI</div>
+    <div class="hero-grid">
+        <div>
+            <span class="eyebrow">INNOVERSE 2026</span>
+            <h1>Less scrolling.<br><b>More living.</b></h1>
+            <p>An explainable machine-learning system that turns digital behavior into a realistic action plan.</p>
+        </div>
+        <div class="phone-card">
+            <div class="phone-top">Digital balance</div>
+            <div class="big-ring"><div><strong>64</strong><span>Balance</span></div></div>
+            <div class="phone-insight">Evening social media is your best opportunity to improve.</div>
+        </div>
+    </div>
+</section>
+
+<section class="scene" id="scene2">
+    <span class="eyebrow">THE PROBLEM</span>
+    <h2>Most wellness tools stop at<br>“use your phone less.”</h2>
+    <div class="problem-grid">
+        <div><span>01</span><h3>Screen time alone is not enough.</h3><p>Work, entertainment, rest and social habits need context.</p></div>
+        <div><span>02</span><h3>Black-box scores do not build trust.</h3><p>Users need to understand what actually influenced the model.</p></div>
+        <div><span>03</span><h3>Restriction is not a behavior plan.</h3><p>We recommend what the user can realistically do instead.</p></div>
+    </div>
+</section>
+
+<section class="scene" id="scene3">
+    <span class="eyebrow">THE AI PIPELINE</span>
+    <h2>Five intelligence layers.<br>One clear decision.</h2>
+    <div class="pipeline">
+        <div><b>1</b><strong>Classification</strong><span>Risk pattern</span></div>
+        <i>→</i>
+        <div><b>2</b><strong>Regression</strong><span>Weekend estimate</span></div>
+        <i>→</i>
+        <div><b>3</b><strong>Clustering</strong><span>User segment</span></div>
+        <i>→</i>
+        <div><b>4</b><strong>SHAP</strong><span>Why this result?</span></div>
+        <i>→</i>
+        <div><b>5</b><strong>Recommendation</strong><span>What next?</span></div>
+    </div>
+    <div class="metrics-strip">
+        <div><strong>0.9889</strong><span>ROC-AUC</span></div>
+        <div><strong>0.9554</strong><span>Balanced Accuracy</span></div>
+        <div><strong>0.9956</strong><span>Average Precision</span></div>
+    </div>
+</section>
+
+<section class="scene" id="scene4">
+    <span class="eyebrow">LIVE USER ANALYSIS</span>
+    <div class="report-head">
+        <div><h2>{{ result.classification.wellness_status }}</h2><p>Model score with transparent evidence.</p></div>
+        <div class="score-pill">{{ "%.0f"|format(result.classification.calibrated_risk_score * 100) }}% model risk</div>
+    </div>
+
+    <div class="report-grid">
+        <div class="report-card factors">
+            <small>TOP MODEL FACTORS</small>
+            {% for item in result.explanation[:4] %}
+            <div class="factor">
+                <span>{{ item.feature|replace('_',' ')|title }}</span>
+                <b class="{% if item.shap_value > 0 %}up{% else %}down{% endif %}">
+                    {% if item.shap_value > 0 %}+{% endif %}{{ "%.3f"|format(item.shap_value) }}
+                </b>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="report-card">
+            <small>WEEKEND SCREEN-TIME ESTIMATE</small>
+            <strong class="forecast">{{ "%.1f"|format(result.projected_weekend_screen_time) }}h</strong>
+            <p>Estimated weekend screen time from the current behavior profile.</p>
+        </div>
+
+        <div class="report-card">
+            <small>BEHAVIOR SEGMENT</small>
+            <strong class="forecast">Cluster {{ result.cluster.cluster_id }}</strong>
+            <p>K-Means behavioral segmentation.</p>
+        </div>
+    </div>
+</section>
+
+<section class="scene" id="scene5">
+    <span class="eyebrow">FROM INSIGHT TO ACTION</span>
+    <h2>We don't just tell the user<br>what to stop doing.</h2>
+
+    <div class="action-layout">
+        <div class="action-context">
+            <span>Student</span>
+            <span>30 minutes</span>
+            <span>Reduce social media</span>
+            <span>Evening</span>
+        </div>
+
+        <div class="actions">
+            {% for item in result.activity_replacements.suggestions[:3] %}
+            <div><b>{{ loop.index }}</b><span>{{ item.category }}</span><p>{{ item.activity }}</p></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="scene" id="scene6">
+    <span class="eyebrow">SMART SUPPORT</span>
+    <h2>Practical tools, not dependency.</h2>
+    <div class="tool-grid">
+        <div><b>F</b><strong>Forest</strong><p>Focus timer for intentional work sessions.</p></div>
+        <div><b>Fr</b><strong>Freedom</strong><p>Block distracting apps and websites.</p></div>
+        <div><b>C</b><strong>Cold Turkey</strong><p>Strong distraction blocking when extra friction is needed.</p></div>
+        <div><b>1s</b><strong>one sec</strong><p>Add a pause before opening distracting apps.</p></div>
+    </div>
+</section>
+
+<section class="scene" id="scene7">
+    <span class="eyebrow">CONTINUOUS WELLNESS</span>
+    <h2>One check-in becomes a habit loop.</h2>
+    <div class="loop-grid">
+        <div><span>01</span><strong>Analyze</strong><p>Digital behavior report</p></div>
+        <div><span>02</span><strong>Act</strong><p>Daily replacement challenge</p></div>
+        <div><span>03</span><strong>Review</strong><p>PDF report and next check-in</p></div>
+        <div><span>04</span><strong>Improve</strong><p>History and recommendation acceptance</p></div>
+    </div>
+</section>
+
+<section class="scene scene-end" id="scene8">
+    <div class="end-mark">W</div>
+    <span class="eyebrow">DIGITAL WELLNESS ANALYZER</span>
+    <h2>Explain the habit.<br><b>Improve the next choice.</b></h2>
+    <p>Classification • Regression • Clustering • SHAP • Personalized Recommendations</p>
+    <div class="closing-pill">Built for healthier, sustainable digital behavior.</div>
+</section>
+
+</body>
+</html>

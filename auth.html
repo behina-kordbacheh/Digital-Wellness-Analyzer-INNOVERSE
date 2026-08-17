@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#07111f">
+    <script>document.documentElement.dataset.theme = localStorage.getItem("dw-theme") || "dark";</script>
+    <title>{% if mode == 'register' %}Create account{% else %}Sign in{% endif %} • Digital Wellness Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="auth-page">
+    <div class="galaxy-scene" aria-hidden="true">
+        <div class="nebula nebula-a"></div>
+        <div class="nebula nebula-b"></div>
+        <div class="nebula nebula-c"></div>
+        <div class="nebula nebula-pink"></div>
+        <div class="star-field star-field-a"></div>
+        <div class="star-field star-field-b"></div>
+        <div class="shooting-star shooting-star-a"></div>
+        <div class="shooting-star shooting-star-b"></div>
+        <div class="cosmic-grid"></div>
+    </div>
+
+    <main class="auth-shell">
+        <section class="auth-brand-panel">
+            <a class="logo auth-logo" href="/video-demo">
+                <span class="logo-symbol">W</span>
+                <span><strong>Wellbeing AI</strong><small>Digital Wellness Analyzer</small></span>
+            </a>
+
+            <div class="cosmic-badge"><span></span><i class="pink-spark"></i> PRIVATE • LOCAL-FIRST</div>
+            <h1>Your progress should still be here tomorrow.</h1>
+            <p>
+                Create a local account so daily analyses, mood check-ins, and monthly trends
+                stay linked to you when the browser closes and you return later.
+            </p>
+
+            <div class="auth-benefits">
+                <div><b>01</b><span><strong>Persistent history</strong><small>SQLite keeps your daily records on this device.</small></span></div>
+                <div><b>02</b><span><strong>Missing days stay missing</strong><small>No check-in is silently converted to zero usage.</small></span></div>
+                <div><b>03</b><span><strong>Hashed passwords</strong><small>The app stores a salted one-way password hash, not your raw password.</small></span></div>
+                <div><b>04</b><span><strong>ML stays unchanged</strong><small>Accounts and history do not alter the validated classifier.</small></span></div>
+            </div>
+        </section>
+
+        <section class="auth-card">
+            <div class="auth-card-head">
+                <span>{% if mode == 'register' %}NEW LOCAL ACCOUNT{% else %}WELCOME BACK{% endif %}</span>
+                <h2>{% if mode == 'register' %}Create your account{% else %}Sign in to restore your history{% endif %}</h2>
+                <p>
+                    {% if mode == 'register' %}
+                    Your username becomes the private owner of future check-ins on this computer.
+                    {% else %}
+                    Your saved progress returns after successful local authentication.
+                    {% endif %}
+                </p>
+            </div>
+
+            {% if error %}
+            <div class="auth-error" role="alert">{{ error }}</div>
+            {% endif %}
+
+            <form method="POST" class="auth-form" autocomplete="on">
+                <label class="field">
+                    <span>Username</span>
+                    <input
+                        type="text"
+                        name="username"
+                        value="{{ username }}"
+                        minlength="3"
+                        maxlength="30"
+                        pattern="[A-Za-z0-9_-]+"
+                        autocomplete="username"
+                        placeholder="e.g. Behina"
+                        required
+                        autofocus
+                    >
+                    <small>Letters, numbers, underscore, and hyphen only.</small>
+                </label>
+
+                <label class="field">
+                    <span>Password</span>
+                    <input
+                        type="password"
+                        name="password"
+                        minlength="8"
+                        maxlength="128"
+                        autocomplete="{% if mode == 'register' %}new-password{% else %}current-password{% endif %}"
+                        placeholder="At least 8 characters"
+                        required
+                    >
+                </label>
+
+                {% if mode == 'register' %}
+                <label class="field">
+                    <span>Confirm password</span>
+                    <input
+                        type="password"
+                        name="confirm_password"
+                        minlength="8"
+                        maxlength="128"
+                        autocomplete="new-password"
+                        placeholder="Repeat your password"
+                        required
+                    >
+                </label>
+                {% endif %}
+
+                <button class="analyze-button auth-submit" type="submit">
+                    {% if mode == 'register' %}Create local account{% else %}Sign in{% endif %} <span>→</span>
+                </button>
+            </form>
+
+            <div class="auth-switch">
+                {% if mode == 'register' %}
+                Already have an account? <a href="{{ url_for('login') }}">Sign in</a>
+                {% else %}
+                First time here? <a href="{{ url_for('register') }}">Create an account</a>
+                {% endif %}
+            </div>
+
+            <div class="auth-privacy-note">
+                <b>Local prototype note</b>
+                <p>
+                    Accounts are stored in this project's local SQLite database. If the project folder or
+                    database file is deleted, the account history is deleted too. This is not a cloud account.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const savedTheme = localStorage.getItem("dw-theme") || "dark";
+        document.documentElement.dataset.theme = savedTheme;
+    </script>
+</body>
+</html>

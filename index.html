@@ -1,0 +1,1572 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f4f7fb">
+    <script>document.documentElement.dataset.theme = localStorage.getItem("dw-theme") || "light";</script>
+    <title>Digital Wellness Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body data-has-result="{{ 'true' if result else 'false' }}">
+
+    <button
+        class="focus-sound-floating"
+        id="focusSoundFloating"
+        type="button"
+        aria-label="Open Focus Sound Space"
+        title="Open Focus Sound Space"
+    >
+        <span class="focus-floating-icon">🎧</span>
+        <span class="focus-floating-copy">
+            <small>FOCUS AUDIO</small>
+            <strong>Focus Sounds</strong>
+        </span>
+        <span class="focus-floating-pulse" aria-hidden="true"></span>
+    </button>
+
+
+<div class="galaxy-scene" aria-hidden="true">
+    <div class="nebula nebula-a"></div>
+    <div class="nebula nebula-b"></div>
+    <div class="nebula nebula-c"></div>
+    <div class="nebula nebula-pink"></div>
+    <div class="star-field star-field-a"></div>
+    <div class="star-field star-field-b"></div>
+    <div class="shooting-star shooting-star-a"></div>
+    <div class="shooting-star shooting-star-b"></div>
+    <div class="cosmic-grid"></div>
+</div>
+
+<div class="page">
+
+    <nav class="nav">
+        <a class="logo" href="/">
+            <span class="logo-symbol">W</span>
+            <span>
+                <strong>Wellbeing AI</strong>
+                <small>Digital Wellness Analyzer</small>
+            </span>
+        </a>
+
+        <div class="nav-center">
+            <a href="#analyzer">Analyzer</a>
+            <a href="#how-it-works">How it works</a>
+            {% if result %}<a href="#results">Your report</a>{% endif %}
+            <a href="#progress">My progress</a>
+        </div>
+
+        <div class="nav-actions">
+            <button class="theme-toggle" type="button" aria-label="Toggle day and night mode">
+                <span class="theme-toggle-sun">☀</span>
+                <span class="theme-toggle-moon">☾</span>
+                <b>Theme</b>
+            </button>
+            <button class="focus-sound-open" id="focusSoundOpen" type="button" aria-label="Open Focus Sound Space">
+                <span class="focus-sound-icon">◉</span>
+                <b>Focus Sounds</b>
+            </button>
+            <button class="motion-toggle" type="button" aria-label="Pause or play interface animation">
+                <span class="motion-dot"></span>
+                <b>Motion on</b>
+            </button>
+            <div class="account-chip" title="Signed-in local account">
+                <span class="account-avatar">{{ current_user.username[0]|upper }}</span>
+                <div><small>LOCAL ACCOUNT</small><b>{{ current_user.username }}</b></div>
+            </div>
+            <form method="POST" action="{{ url_for('logout') }}" class="logout-form">
+                <button type="submit" class="logout-button">Log out</button>
+            </form>
+            <span class="privacy-pill">● Local-first</span>
+            <a class="demo-link" href="/video-demo">Video demo</a>
+        </div>
+    </nav>
+
+
+    <main>
+
+        <section class="hero">
+            <div class="hero-copy">
+                <div class="cosmic-badge"><span></span><i class="pink-spark"></i> EXPLAINABLE AI • LOCAL-FIRST</div>
+                <div class="hero-label">AI-POWERED DIGITAL WELLBEING</div>
+                <div class="welcome-back">Welcome back, <b>{{ current_user.username }}</b>. Your history is restored from this device.</div>
+                <h1>
+                    Less scrolling.<br>
+                    <span>More living.</span>
+                </h1>
+
+                <p>
+                    Understand how your screen habits affect your digital balance,
+                    see what drives your risk score, and get realistic actions
+                    tailored to your routine.
+                </p>
+
+                <div class="hero-actions">
+                    <a class="primary-btn" href="#analyzer">Check my habits <span>→</span></a>
+                    <a class="text-btn" href="#how-it-works">See how the AI works</a>
+                </div>
+
+                
+                <button class="hero-focus-sound-cta" id="heroFocusSoundCTA" type="button">
+                    <span class="hero-focus-icon">🎧</span>
+                    <span>
+                        <small>NEW • OPTIONAL</small>
+                        <strong>Open Focus Sound Space</strong>
+                    </span>
+                    <b>→</b>
+                </button>
+
+                <div class="signal-visual" aria-hidden="true">
+                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+                <div class="trust-row">
+                    <div><b>98.9%</b><span>ROC-AUC</span></div>
+                    <div><b>95.5%</b><span>Balanced accuracy</span></div>
+                    <div><b>7,500</b><span>Reference users</span></div>
+                    <div><b>0</b><span>Cloud APIs</span></div>
+                </div>
+            </div>
+
+            <div class="hero-dashboard" aria-label="Digital wellness dashboard preview">
+                <div class="hero-orbit-system" aria-hidden="true">
+                    <span class="orbit-ring orbit-ring-1"></span>
+                    <span class="orbit-ring orbit-ring-2"></span>
+                    <span class="orbit-dot orbit-dot-1"></span>
+                    <span class="orbit-dot orbit-dot-2"></span>
+                    <span class="orbit-dot orbit-dot-3"></span>
+                </div>
+                <div class="preview-head">
+                    <span>Today</span>
+                    <span class="preview-status">Live insight</span>
+                </div>
+
+                <div class="balance-preview">
+                    <div class="score-ring" style="--score: 72">
+                        <div><strong>72</strong><span>Balance</span></div>
+                    </div>
+
+                    <div class="preview-copy">
+                        <small>DIGITAL BALANCE</small>
+                        <h3>Good, with room to improve.</h3>
+                        <p>Your evening social usage is the best place to start.</p>
+                    </div>
+                </div>
+
+                <div class="mini-bars">
+                    <div>
+                        <span>Focus</span>
+                        <i><b style="width:78%"></b></i>
+                        <em>78</em>
+                    </div>
+                    <div>
+                        <span>Recovery</span>
+                        <i><b style="width:62%"></b></i>
+                        <em>62</em>
+                    </div>
+                    <div>
+                        <span>Social</span>
+                        <i><b class="warm" style="width:84%"></b></i>
+                        <em>84</em>
+                    </div>
+                </div>
+
+                <div class="preview-action">
+                    <span>Today’s suggestion</span>
+                    <strong>Replace one 20-min scroll with a phone-free walk.</strong>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="how" id="how-it-works">
+            <div class="section-title">
+                <span>HOW IT WORKS</span>
+                <h2>From data to a better next action.</h2>
+                <p>Not another “use your phone less” app.</p>
+            </div>
+
+            <div class="how-grid">
+                <article>
+                    <div class="how-number">01</div>
+                    <div class="how-icon">◎</div>
+                    <h3>Understand your pattern</h3>
+                    <p>We analyze screen time, social usage, sleep, notifications, app opens, work and weekend habits.</p>
+                </article>
+
+                <article>
+                    <div class="how-number">02</div>
+                    <div class="how-icon">↗</div>
+                    <h3>Explain the AI decision</h3>
+                    <p>SHAP shows which behaviors pushed your model score up or down — for you, not for an average user.</p>
+                </article>
+
+                <article>
+                    <div class="how-number">03</div>
+                    <div class="how-icon">✦</div>
+                    <h3>Replace, don't just restrict</h3>
+                    <p>Get realistic activities and focus tools based on your role, available time, goal and scrolling trigger.</p>
+                </article>
+            </div>
+        </section>
+
+
+        <section class="analyzer" id="analyzer">
+            <div class="analyzer-intro">
+                <span class="section-tag">YOUR CHECK-IN</span>
+                <h2>Tell us what your digital day looks like.</h2>
+                <p>
+                    Takes about one minute. Your preference fields personalize recommendations
+                    but are not secretly added to the trained ML classifier.
+                </p>
+                {% if latest_saved_inputs %}
+                <div class="restored-input-note">
+                    <b>Previous check-in restored:</b> behavioral fields were prefilled from {{ latest_saved_inputs.snapshot_date }}.
+                    Update them with today's values before analyzing.
+                </div>
+                {% endif %}
+            </div>
+
+            <form method="POST" class="analysis-form">
+
+                <div class="form-layout">
+                    <aside class="step-sidebar">
+                        <div class="step active">
+                            <span>1</span>
+                            <div><b>Profile</b><small>Basic context</small></div>
+                        </div>
+                        <div class="step">
+                            <span>2</span>
+                            <div><b>Habits</b><small>Daily usage</small></div>
+                        </div>
+                        <div class="step">
+                            <span>3</span>
+                            <div><b>Goals</b><small>Personalize actions</small></div>
+                        </div>
+                        <div class="step">
+                            <span>4</span>
+                            <div><b>Analyze</b><small>AI report</small></div>
+                        </div>
+
+                        <div class="sidebar-note">
+                            <span>Privacy note</span>
+                            <p>Analysis runs locally. No cloud AI API is required.</p>
+                        </div>
+                    </aside>
+
+
+                    <div class="form-content">
+
+                        <section class="form-group">
+                            <div class="form-group-head">
+                                <span>01</span>
+                                <div>
+                                    <h3>Your profile</h3>
+                                    <p>Simple context for the analysis and local history.</p>
+                                </div>
+                            </div>
+
+                            <div class="field-grid cols-2">
+                                <div class="account-identity-field">
+                                    <span>Signed-in account</span>
+                                    <strong>{{ current_user.username }}</strong>
+                                    <small>Daily history is linked to this account, not to an editable nickname.</small>
+                                </div>
+
+                                <label class="field">
+                                    <span>Age</span>
+                                    <input type="number" name="age" min="13" max="70" value="{{ form.age }}" required>
+                                </label>
+                            </div>
+
+                            <div class="field-label">Gender</div>
+                            <div class="choice-row interactive-options">
+                                {% for value in ["Female", "Male", "Other"] %}
+                                <input type="radio" id="gender-{{ loop.index }}" name="gender" value="{{ value }}" {% if form.gender == value %}checked{% endif %}>
+                                <label for="gender-{{ loop.index }}">{{ value }}</label>
+                                {% endfor %}
+                            </div>
+
+                            <div class="field-grid cols-2 split-top">
+                                <div>
+                                    <div class="field-label">Stress level</div>
+                                    <div class="choice-row interactive-options">
+                                        {% for value in ["Low", "Medium", "High"] %}
+                                        <input type="radio" id="stress-{{ loop.index }}" name="stress_level" value="{{ value }}" {% if form.stress_level == value %}checked{% endif %}>
+                                        <label for="stress-{{ loop.index }}">{{ value }}</label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="field-label">Does device use affect work or study?</div>
+                                    <div class="choice-row interactive-options">
+                                        {% for value in ["No", "Yes"] %}
+                                        <input type="radio" id="impact-{{ loop.index }}" name="academic_work_impact" value="{{ value }}" {% if form.academic_work_impact == value %}checked{% endif %}>
+                                        <label for="impact-{{ loop.index }}">{{ value }}</label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+
+                        <section class="form-group">
+                            <div class="form-group-head">
+                                <span>02</span>
+                                <div>
+                                    <h3>Your digital habits</h3>
+                                    <p>Use the sliders. Exact values can be typed on the right.</p>
+                                </div>
+                            </div>
+
+                            {% set habits = [
+                                ("daily_screen_time_hours", "Daily screen time", "All device use", 0, 16, 0.1, form.daily_screen_time_hours, "h"),
+                                ("social_media_hours", "Social media", "Feeds, reels, messaging", 0, 12, 0.1, form.social_media_hours, "h"),
+                                ("gaming_hours", "Gaming", "Mobile, console, PC", 0, 12, 0.1, form.gaming_hours, "h"),
+                                ("sleep_hours", "Sleep", "Average nightly sleep", 0, 14, 0.1, form.sleep_hours, "h"),
+                                ("weekend_screen_time", "Weekend screen time", "Average weekend day", 0, 18, 0.1, form.weekend_screen_time, "h"),
+                                ("notifications_per_day", "Notifications", "Approximate per day", 0, 500, 1, form.notifications_per_day, ""),
+                                ("app_opens_per_day", "App opens", "Approximate per day", 0, 400, 1, form.app_opens_per_day, "")
+                            ] %}
+
+                            <div class="habit-list">
+                                {% for name, label, desc, minv, maxv, step, value, unit in habits %}
+                                <div class="habit-item">
+                                    <div class="habit-label">
+                                        <strong>{{ label }}</strong>
+                                        <span>{{ desc }}</span>
+                                    </div>
+
+                                    <input
+                                        class="range"
+                                        type="range"
+                                        min="{{ minv }}"
+                                        max="{{ maxv }}"
+                                        step="{{ step }}"
+                                        value="{{ value }}"
+                                        data-range="{{ name }}"
+                                    >
+
+                                    <div class="value-box">
+                                        <input
+                                            type="number"
+                                            name="{{ name }}"
+                                            min="{{ minv }}"
+                                            max="{{ maxv }}"
+                                            step="{{ step }}"
+                                            value="{{ value }}"
+                                            data-number="{{ name }}"
+                                            required
+                                        >
+                                        <span>{{ unit }}</span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </section>
+
+
+                        <section class="form-group">
+                            <div class="form-group-head">
+                                <span>03</span>
+                                <div>
+                                    <h3>Make recommendations fit your life</h3>
+                                    <p>These fields personalize the action plan after the ML prediction.</p>
+                                </div>
+                            </div>
+
+                            <div class="field-label">Your role</div>
+                            <div class="card-options interactive-options role-options">
+                                {% for value, icon in [
+                                    ("Student","🎓"),("Software / IT","⌨"),("Office Work","▦"),
+                                    ("Teacher","✎"),("Healthcare","＋"),("Creative Work","◇"),
+                                    ("Freelancer","◫"),("Homemaker","⌂"),("Other","•••")
+                                ] %}
+                                <input type="radio" id="role-{{ loop.index }}" name="occupation" value="{{ value }}" {% if form.occupation == value %}checked{% endif %}>
+                                <label for="role-{{ loop.index }}"><span>{{ icon }}</span><b>{{ value }}</b></label>
+                                {% endfor %}
+                            </div>
+
+                            <div class="field-grid cols-2 split-top">
+                                <div>
+                                    <div class="field-label">Time you can realistically replace</div>
+                                    <div class="choice-row interactive-options compact">
+                                        {% for value in ["5 minutes","15 minutes","30 minutes","60+ minutes"] %}
+                                        <input type="radio" id="time-{{ loop.index }}" name="available_time" value="{{ value }}" {% if form.available_time == value %}checked{% endif %}>
+                                        <label for="time-{{ loop.index }}">{{ value }}</label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="field-label">When do you scroll most?</div>
+                                    <div class="choice-row interactive-options compact">
+                                        {% for value in ["Morning","Afternoon","Evening","Late night"] %}
+                                        <input type="radio" id="peak-{{ loop.index }}" name="peak_usage_time" value="{{ value }}" {% if form.peak_usage_time == value %}checked{% endif %}>
+                                        <label for="peak-{{ loop.index }}">{{ value }}</label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field-label split-top">Your goal</div>
+                            <div class="card-options interactive-options goal-options">
+                                {% for value, desc in [
+                                    ("Focus","Protect attention"),
+                                    ("Relax","Recover without feeds"),
+                                    ("Be more active","Add movement"),
+                                    ("Learn something","Use time intentionally"),
+                                    ("Sleep better","Protect evenings"),
+                                    ("Reduce social media","Break scrolling loops")
+                                ] %}
+                                <input type="radio" id="goal-{{ loop.index }}" name="goal" value="{{ value }}" {% if form.goal == value %}checked{% endif %}>
+                                <label for="goal-{{ loop.index }}"><b>{{ value }}</b><span>{{ desc }}</span></label>
+                                {% endfor %}
+                            </div>
+
+                            <div class="field-grid cols-2 split-top">
+                                <div>
+                                    <div class="field-label">Activity preference</div>
+                                    <div class="choice-row interactive-options compact wrap">
+                                        {% for value in ["Mixed","Physical","Social","Creative","Learning","Relaxation"] %}
+                                        <input type="radio" id="pref-{{ loop.index }}" name="activity_preference" value="{{ value }}" {% if form.activity_preference == value %}checked{% endif %}>
+                                        <label for="pref-{{ loop.index }}">{{ value }}</label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="field-label">Main reason you open social media</div>
+                                    <div class="choice-row interactive-options compact wrap">
+                                        {% for value in ["Boredom","Habit","Relaxation","Communication","Work / Study"] %}
+                                        <input type="radio" id="reason-{{ loop.index }}" name="social_media_reason" value="{{ value }}" {% if form.social_media_reason == value %}checked{% endif %}>
+                                        <label for="reason-{{ loop.index }}">{{ value }}</label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="device_platform" value="Any">
+
+
+                            <div class="lifestyle-divider"></div>
+
+                            <div class="form-group-head mini-head">
+                                <span>+</span>
+                                <div>
+                                    <h3>Life balance & weekly planning</h3>
+                                    <p>Tell the system what you want to protect outside passive scrolling.</p>
+                                </div>
+                            </div>
+
+                            <div class="field-label">How many days per week do you exercise?</div>
+                            <div class="choice-row interactive-options compact wrap">
+                                {% for value in range(0, 8) %}
+                                <input type="radio" id="exercise-days-{{ value }}" name="exercise_days_per_week" value="{{ value }}" {% if form.exercise_days_per_week|int == value %}checked{% endif %}>
+                                <label for="exercise-days-{{ value }}">{{ value }} day{% if value != 1 %}s{% endif %}</label>
+                                {% endfor %}
+                            </div>
+
+                            <div class="field-grid cols-2 split-top">
+                                <label class="field">
+                                    <span>Minutes per exercise session</span>
+                                    <input type="number" name="exercise_minutes_per_session" min="0" max="180" step="5" value="{{ form.exercise_minutes_per_session }}">
+                                </label>
+
+                                <div>
+                                    <div class="field-label">Would you like a weekly plan?</div>
+                                    <div class="choice-row interactive-options compact">
+                                        {% for value in ["Yes","No"] %}
+                                        <input type="radio" id="weekly-{{ loop.index }}" name="wants_weekly_plan" value="{{ value }}" {% if form.wants_weekly_plan == value %}checked{% endif %}>
+                                        <label for="weekly-{{ loop.index }}">{{ value }}</label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field-label split-top">What should your week make room for? Select multiple.</div>
+                            <div class="multi-activity-grid interactive-options">
+                                {% for value, icon in [
+                                    ("Study","📚"),("Work","💼"),("Exercise","🏃"),
+                                    ("Entertainment","🎬"),("Offline Social","☕"),
+                                    ("Reading","📖"),("Creative","🎨"),("Mindfulness","🌿")
+                                ] %}
+                                <input type="checkbox" id="activity-{{ loop.index }}" name="selected_activities" value="{{ value }}" {% if value in form.selected_activities %}checked{% endif %}>
+                                <label for="activity-{{ loop.index }}"><span>{{ icon }}</span><b>{{ value }}</b></label>
+                                {% endfor %}
+                            </div>
+
+                            <div class="detail-grid split-top">
+                                <label class="field detail-field" data-activity-detail="Study">
+                                    <span>Study hours per day</span>
+                                    <input type="number" name="study_hours_per_day" min="0" max="16" step="0.25" value="{{ form.study_hours_per_day }}">
+                                </label>
+                                <label class="field detail-field" data-activity-detail="Work">
+                                    <span>Work hours per day</span>
+                                    <input type="number" name="work_hours_per_day" min="0" max="16" step="0.25" value="{{ form.work_hours_per_day }}">
+                                </label>
+                                <label class="field detail-field" data-activity-detail="Entertainment">
+                                    <span>Entertainment hours per day</span>
+                                    <input type="number" name="entertainment_hours_per_day" min="0" max="12" step="0.25" value="{{ form.entertainment_hours_per_day }}">
+                                </label>
+                                <label class="field detail-field" data-activity-detail="Offline Social">
+                                    <span>Offline social minutes per day</span>
+                                    <input type="number" name="offline_social_minutes" min="0" max="480" step="5" value="{{ form.offline_social_minutes }}">
+                                </label>
+                            </div>
+
+                            <div class="digital-purpose-card split-top">
+                                <div>
+                                    <span class="card-kicker">PURPOSEFUL SCREEN TIME</span>
+                                    <h4>How much screen time is actually for study or work?</h4>
+                                    <p>This gives productive digital use positive context without changing the validated ML classifier.</p>
+                                </div>
+                                <div class="field-grid cols-2">
+                                    <label class="field">
+                                        <span>Digital study hours / day</span>
+                                        <input type="number" name="digital_study_hours" min="0" max="16" step="0.25" value="{{ form.digital_study_hours }}">
+                                    </label>
+                                    <label class="field">
+                                        <span>Digital work hours / day</span>
+                                        <input type="number" name="digital_work_hours" min="0" max="16" step="0.25" value="{{ form.digital_work_hours }}">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="field-label split-top">Next check-in</div>
+                            <div class="choice-row interactive-options compact checkin-row">
+                                {% for value in ["Tomorrow","3 days","7 days","30 days"] %}
+                                <input type="radio" id="check-{{ loop.index }}" name="checkin_interval" value="{{ value }}" {% if form.checkin_interval == value %}checked{% endif %}>
+                                <label for="check-{{ loop.index }}">{{ value }}</label>
+                                {% endfor %}
+                            </div>
+                        </section>
+
+
+                        <div class="submit-card">
+                            <div>
+                                <span>Ready?</span>
+                                <h3>Turn your habits into an action plan.</h3>
+                                <p>Classification + regression + clustering + explainability + recommendations.</p>
+                            </div>
+
+                            <button class="analyze-button" type="submit">
+                                Analyze my digital wellness <span>→</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </section>
+
+
+        {% if result %}
+        {% set score = result.classification.calibrated_risk_score * 100 %}
+        {% set balance = 100 - score %}
+
+        <section class="results" id="results">
+
+            <div class="results-top">
+                <div>
+                    <span class="section-tag">YOUR REPORT</span>
+                    <h2>A clear picture of your digital balance.</h2>
+                    <p>Model insight translated into practical next steps.</p>
+                </div>
+
+                <div class="result-actions">
+                    {% if report_url %}
+                    <a class="secondary-btn" href="{{ report_url }}">Download PDF</a>
+                    {% endif %}
+                    {% if telegram_share_url %}
+                    <a class="secondary-btn" href="{{ telegram_share_url }}" target="_blank" rel="noopener">Share summary</a>
+                    {% endif %}
+                </div>
+            </div>
+
+
+            <div class="summary-grid">
+                <article class="balance-card">
+                    <div class="balance-ring" style="--score: {{ balance|round(0) }}">
+                        <div>
+                            <strong>{{ "%.0f"|format(balance) }}</strong>
+                            <span>Balance score</span>
+                        </div>
+                    </div>
+
+                    <div class="balance-copy">
+                        <span class="status-label {% if result.classification.risk_class == 1 %}attention{% else %}healthy{% endif %}">
+                            {% if result.classification.risk_class == 1 %}Needs attention{% else %}Healthy pattern{% endif %}
+                        </span>
+
+                        <h3>{{ result.classification.wellness_status }}</h3>
+                        <p>
+                            Model risk score:
+                            <b>{{ "%.1f"|format(score) }}%</b>.
+                            This is a model score, not a medical probability.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="metric-card">
+                    <span>Weekend estimate</span>
+                    <strong>{{ "%.1f"|format(result.projected_weekend_screen_time) }} h</strong>
+                    <p>Estimated screen time on a weekend day from current behavior.</p>
+                </article>
+
+                <article class="metric-card">
+                    <span>Behavior segment</span>
+                    <strong>Cluster {{ result.cluster.cluster_id }}</strong>
+                    <p>Unsupervised behavior segmentation.</p>
+                </article>
+
+                <article class="metric-card">
+                    <span>Next check-in</span>
+                    <strong class="small-metric">{{ next_checkin }}</strong>
+                    <p>Stored in your local report and history.</p>
+                </article>
+            </div>
+
+
+
+            {% if model_metrics and model_metrics.classifier %}
+            {% set clf = model_metrics.classifier %}
+            <article class="model-evidence-panel">
+                <div class="model-evidence-head">
+                    <div>
+                        <span>MODEL ACCURACY & VALIDATION</span>
+                        <h3>How reliable is this prediction model?</h3>
+                        <p>
+                            The classifier was evaluated with fixed 5-fold stratified
+                            out-of-fold predictions after removing leakage-prone columns.
+                        </p>
+                    </div>
+                    <div class="evidence-badge">Leakage-aware evaluation</div>
+                </div>
+
+                <div class="performance-metrics">
+                    <div>
+                        <span>Accuracy</span>
+                        <strong>{{ "%.1f"|format(clf.accuracy * 100) }}%</strong>
+                        <small>Overall correct classifications</small>
+                    </div>
+                    <div class="featured-metric">
+                        <span>Balanced accuracy</span>
+                        <strong>{{ "%.1f"|format(clf.balanced_accuracy * 100) }}%</strong>
+                        <small>More informative for the imbalanced target</small>
+                    </div>
+                    <div>
+                        <span>ROC-AUC</span>
+                        <strong>{{ "%.2f"|format(clf.roc_auc * 100) }}%</strong>
+                        <small>Ranking separation across thresholds</small>
+                    </div>
+                    <div>
+                        <span>Average precision</span>
+                        <strong>{{ "%.2f"|format(clf.average_precision * 100) }}%</strong>
+                        <small>Strong performance on the positive class</small>
+                    </div>
+                    <div>
+                        <span>Positive precision</span>
+                        <strong>{{ "%.1f"|format(clf.precision_class_1 * 100) }}%</strong>
+                        <small>When high-risk is predicted</small>
+                    </div>
+                    <div>
+                        <span>Positive recall</span>
+                        <strong>{{ "%.1f"|format(clf.recall_class_1 * 100) }}%</strong>
+                        <small>High-risk cases detected</small>
+                    </div>
+                </div>
+
+                <div class="validation-explainer">
+                    <div class="validation-copy">
+                        <span>DECISION THRESHOLD</span>
+                        <h4>{{ "%.2f"|format(clf.decision_threshold) }}</h4>
+                        <p>
+                            The deployment threshold was searched from 0.50 to 0.90
+                            using out-of-fold predictions and selected by balanced accuracy.
+                            This is a threshold search, not the same thing as GridSearchCV.
+                        </p>
+                    </div>
+
+                    {% if grid_search %}
+                    <div class="validation-copy grid-copy">
+                        <span>GRIDSEARCHCV CHECK</span>
+                        <h4>{{ "%.4f"|format(grid_search.best_mean_cv_roc_auc) }} CV AUC</h4>
+                        <p>
+                            A separate 3-fold GridSearchCV test found
+                            <b>300 trees, max depth 20, min leaf 4</b>.
+                            The gain over the baseline-like RF was only about
+                            <b>0.00017 AUC</b>, so the model was already near the performance plateau.
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="model-caveat">
+                    <span>Important:</span>
+                    <p>
+                        These are competition-dataset validation results, not a medical
+                        accuracy guarantee and not proof of performance on every outside population.
+                        The risk score is therefore presented as a model score, not a diagnosis.
+                    </p>
+                </div>
+            </article>
+            {% endif %}
+
+
+            <div class="result-grid">
+
+                <article class="panel">                    <div class="panel-head">
+                        <div>
+                            <span>WHY THIS RESULT?</span>
+                            <h3>Top factors</h3>
+                        </div>
+                        <em>SHAP</em>
+                    </div>
+
+                    <div class="factor-list">
+                        {% for item in result.explanation %}
+                        {% set width = (item.shap_value|abs * 170) %}
+                        <div class="factor">
+                            <div class="factor-row">
+                                <span>{{ item.feature|replace('_',' ')|title }}</span>
+                                <b class="{% if item.shap_value > 0 %}risk-text{% else %}good-text{% endif %}">
+                                    {% if item.shap_value > 0 %}+{% endif %}{{ "%.3f"|format(item.shap_value) }}
+                                </b>
+                            </div>
+                            <div class="factor-track">
+                                <i class="{% if item.shap_value > 0 %}risk-fill{% else %}good-fill{% endif %}" style="width: {{ [width, 100]|min }}%"></i>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </article>
+
+
+                <article class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <span>YOUR DATA IN CONTEXT</span>
+                            <h3>Reference percentiles</h3>
+                        </div>
+                        <em>7,500 users</em>
+                    </div>
+
+                    {% for feature, value in result.percentiles.items() %}
+                    <div class="percentile-row">
+                        <div>
+                            <span>{{ feature|replace('_',' ')|title }}</span>
+                            <b>{{ "%.0f"|format(value) }}th</b>
+                        </div>
+                        <div class="percentile-track"><i style="width: {{ value }}%"></i></div>
+                    </div>
+                    {% endfor %}
+
+                    <p class="note">Dataset percentiles are reference values, not medical thresholds.</p>
+                </article>
+            </div>
+
+
+            <div class="result-grid recommendations-grid">
+
+                <article class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <span>ACTION PLAN</span>
+                            <h3>Recommended changes</h3>
+                        </div>
+                        <em>Personalized</em>
+                    </div>
+
+                    <div class="recommendation-list">
+                        {% for rec in result.recommendations %}
+                        <div class="recommendation">
+                            <span>✓</span>
+                            <p>{{ rec }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </article>
+
+
+                <article class="panel replacement-panel">
+                    <div class="panel-head">
+                        <div>
+                            <span>REPLACE THE SCROLL</span>
+                            <h3>Better things to do instead</h3>
+                        </div>
+                        <em>{{ result.activity_replacements.available_time }}</em>
+                    </div>
+
+                    <div class="context-line">
+                        <span>{{ result.activity_replacements.occupation }}</span>
+                        <span>{{ result.activity_replacements.goal }}</span>
+                        <span>{{ result.activity_replacements.peak_usage_time }}</span>
+                    </div>
+
+                    {% if result.activity_replacements.contextual_tip %}
+                    <div class="smart-tip">{{ result.activity_replacements.contextual_tip }}</div>
+                    {% endif %}
+
+                    <div class="replacement-list">
+                        {% for item in result.activity_replacements.suggestions %}
+                        <div>
+                            <span>{{ item.category }}</span>
+                            <p>{{ item.activity }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </article>
+            </div>
+
+
+
+            <div class="result-grid lifestyle-results">
+                <article class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <span>PRODUCTIVE DIGITAL USE</span>
+                            <h3>Intentional use context</h3>
+                        </div>
+                        <em>{{ "%.0f"|format(result.productive_digital.intentional_use_score) }}/100</em>
+                    </div>
+                    <div class="big-purpose-score">
+                        <strong>{{ "%.0f"|format(result.productive_digital.purposeful_share) }}%</strong>
+                        <span>of reported daily screen time is purposeful study/work</span>
+                    </div>
+                    <p class="note">{{ result.productive_digital.message }}</p>
+                </article>
+
+                <article class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <span>ACTIVITY CONTEXT</span>
+                            <h3>Your exercise plan</h3>
+                        </div>
+                        <em>{{ result.exercise_context.weekly_minutes }} min/week</em>
+                    </div>
+                    <div class="exercise-stat">
+                        <strong>{{ result.exercise_context.days_per_week }}</strong>
+                        <span>planned days per week</span>
+                    </div>
+                    <p class="smart-tip">{{ result.exercise_context.progress_label }}</p>
+                    <p class="note">{{ result.exercise_context.impact_note }}</p>
+                </article>
+            </div>
+
+            <article class="coach-card">
+                <div class="coach-avatar">AI</div>
+                <div>
+                    <span>A FRIENDLIER NUDGE</span>
+                    <h3>You can build this gradually.</h3>
+                    <p>{{ result.friendly_coach_message }}</p>
+                </div>
+            </article>
+
+            {% if result.weekly_plan %}
+            <article class="panel weekly-plan-panel">
+                <div class="panel-head">
+                    <div>
+                        <span>YOUR WEEKLY PLAN</span>
+                        <h3>A realistic structure for study, work, fun and recovery</h3>
+                    </div>
+                    <em>7 days</em>
+                </div>
+
+                <div class="weekly-plan-grid">
+                    {% for day in result.weekly_plan %}
+                    <div class="day-card">
+                        <strong>{{ day.day }}</strong>
+                        {% for block in day.blocks %}
+                        <p>• {{ block }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </article>
+            {% endif %}
+
+            <article class="panel ergonomics-panel">
+                <div class="panel-head">
+                    <div>
+                        <span>HEALTHIER DIGITAL WORK/STUDY</span>
+                        <h3>Make necessary screen time more comfortable</h3>
+                    </div>
+                    <em>Ergonomics</em>
+                </div>
+
+                <div class="ergonomics-grid">
+                    {% for item in result.ergonomic_guidance %}
+                    <div>
+                        <strong>{{ item.title }}</strong>
+                        <p>{{ item.text }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </article>
+
+            <article class="panel mood-panel">
+                <div class="panel-head">
+                    <div>
+                        <span>DAILY MOOD & FOCUS NOTE</span>
+                        <h3>Check in with yourself, not just your screen.</h3>
+                    </div>
+                    <em>Private • Local</em>
+                </div>
+
+                <p class="mood-intro">
+                    Rate how you feel today and write anything that is on your mind.
+                    This is a reflection tool, not therapy or a mental-health diagnosis.
+                </p>
+
+                <div class="mood-grid">
+                    {% for key, label in [
+                        ("anxiety","Anxiety"),("stress","Stress"),("sadness","Sadness"),
+                        ("happiness","Happiness"),("focus","Focus")
+                    ] %}
+                    <label class="mood-score">
+                        <span>{{ label }}</span>
+                        <input type="range" min="1" max="10" value="5" data-mood="{{ key }}">
+                        <b data-mood-value="{{ key }}">5</b>
+                    </label>
+                    {% endfor %}
+                </div>
+
+                <div class="mood-bottom">
+                    <label class="field">
+                        <span>Exercise today (minutes)</span>
+                        <input type="number" id="moodExerciseMinutes" min="0" max="300" step="5" value="0">
+                    </label>
+                    <label class="field">
+                        <span>What is on your mind?</span>
+                        <textarea id="moodNote" rows="4" maxlength="4000" placeholder="Write freely. This stays in the local SQLite database on this computer."></textarea>
+                    </label>
+                </div>
+
+                <button type="button" class="mood-save-button" data-profile="{{ form.profile_name }}">Save today's check-in</button>
+                <span class="mood-save-status" aria-live="polite"></span>
+
+                {% if mood_insights and mood_insights.count %}
+                <div class="mood-insights">
+                    <div><span>Check-ins</span><strong>{{ mood_insights.count }}</strong></div>
+                    <div><span>Latest focus</span><strong>{{ mood_insights.latest.focus }}/10</strong></div>
+                    <div><span>Latest happiness</span><strong>{{ mood_insights.latest.happiness }}/10</strong></div>
+                    <div>
+                        <span>Focus on exercise days</span>
+                        <strong>
+                            {% if mood_insights.exercise_day_focus is not none %}
+                                {{ mood_insights.exercise_day_focus }}/10
+                            {% else %}—{% endif %}
+                        </strong>
+                    </div>
+                </div>
+                <p class="note">{{ mood_insights.note }}</p>
+                {% endif %}
+            </article>
+
+            {% if result.focus_tools %}            <article class="panel focus-panel">
+                <div class="panel-head">
+                    <div>
+                        <span>OPTIONAL FOCUS TOOLS</span>
+                        <h3>Technology that can help create friction.</h3>
+                    </div>
+                    <em>Not sponsored</em>
+                </div>
+
+                <div class="focus-grid">
+                    {% for tool in result.focus_tools %}
+                    <div class="focus-tool">
+                        <div class="tool-logo">{{ tool.name[0] }}</div>
+                        <div>
+                            <strong>{{ tool.name }}</strong>
+                            <p>{{ tool.reason }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </article>
+            {% endif %}
+
+
+            <article class="challenge">
+                <div class="challenge-number">01</div>
+                <div>
+                    <span>TODAY'S MICRO-CHALLENGE</span>
+                    <h3>{{ result.activity_replacements.daily_challenge }}</h3>
+                    <p>Small repeatable changes beat extreme digital detox rules.</p>
+                </div>
+
+                {% if analysis_id %}
+                <button type="button" class="challenge-button" data-analysis-id="{{ analysis_id }}">I’ll do it</button>
+                {% endif %}
+            </article>
+
+
+
+
+            <div class="report-note">
+                <span>i</span>
+                <p>{{ result.disclaimer }}</p>
+            </div>
+
+        </section>
+        {% endif %}
+
+        <section class="progress-section" id="progress">
+            <article class="panel progress-panel">
+                <div class="panel-head progress-head">
+                    <div>
+                        <span>MY PROGRESS • {{ current_user.username|upper }}</span>
+                        <h3>Your history comes back when you sign in.</h3>
+                        <p>Recorded days stay separate from missing days. No check-in is ever treated as zero usage.</p>
+                    </div>
+                    <em>{{ progress_dashboard.total_records }} recorded day{% if progress_dashboard.total_records != 1 %}s{% endif %}</em>
+                </div>
+
+                <div class="returning-user-strip">
+                    <div>
+                        <span>ACCOUNT</span>
+                        <strong>{{ current_user.username }}</strong>
+                        <p>Local SQLite history • password stored as a one-way hash</p>
+                    </div>
+                    <div>
+                        <span>LAST CHECK-IN</span>
+                        {% if progress_dashboard.latest_date %}
+                        <strong>{{ progress_dashboard.latest_date }}</strong>
+                        <p>{% if progress_dashboard.days_since_last == 0 %}Recorded today{% elif progress_dashboard.days_since_last == 1 %}1 day ago{% else %}{{ progress_dashboard.days_since_last }} days ago{% endif %}</p>
+                        {% else %}
+                        <strong>Not yet</strong>
+                        <p>Complete your first analysis to start tracking.</p>
+                        {% endif %}
+                    </div>
+                    <div class="consistency-highlight">
+                        <span>30-DAY CHECK-IN CONSISTENCY</span>
+                        <strong>{{ "%.0f"|format(progress_dashboard.consistency_30) }}<small>%</small></strong>
+                        <p>{{ progress_dashboard.completed_30 }} completed • {{ progress_dashboard.missing_30 }} missing</p>
+                    </div>
+                </div>
+
+                <div class="checkin-calendar-card">
+                    <div class="checkin-calendar-head">
+                        <div>
+                            <span>LAST 30 CALENDAR DAYS</span>
+                            <h4>Completed check-ins and missing days</h4>
+                        </div>
+                        <div class="calendar-legend"><b class="legend-complete"></b>Completed <b class="legend-missing"></b>No data entered <b class="legend-inactive"></b>Before tracking</div>
+                    </div>
+                    <div class="checkin-calendar-grid">
+                        {% for day in progress_dashboard.checkin_calendar %}
+                        <div class="checkin-day {% if day.recorded %}is-complete{% elif day.eligible %}is-missing{% else %}is-inactive{% endif %}" title="{{ day.date }} — {{ day.status }}">
+                            <small>{{ day.date[5:7] }}/{{ day.date[8:10] }}</small>
+                            <span>{% if day.recorded %}✓{% elif day.eligible %}—{% else %}·{% endif %}</span>
+                            <b>{% if day.recorded %}Done{% elif day.eligible %}No data{% else %}Before start{% endif %}</b>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% if progress_dashboard.missing_dates_30 %}
+                    <p class="missing-days-copy"><b>No data entered:</b> {{ progress_dashboard.missing_dates_30 | join(', ') }}</p>
+                    {% else %}
+                    <p class="missing-days-copy all-complete"><b>Great consistency:</b> every day in this 30-day window has a recorded check-in.</p>
+                    {% endif %}
+                </div>
+
+                {% if progress_dashboard.total_records %}
+                <div class="progress-summary-grid">
+                    <div class="progress-summary-card">
+                        <span>LATEST MODEL RISK</span>
+                        <strong>{{ "%.1f"|format(progress_dashboard.latest.risk_score * 100) }}<small>/100</small></strong>
+                        <p>{{ progress_dashboard.latest.wellness_status }}</p>
+                    </div>
+                    <div class="progress-summary-card">
+                        <span>7-DAY AVG SCREEN</span>
+                        <strong>{% if progress_dashboard.weekly.average_daily_screen is not none %}{{ "%.2f"|format(progress_dashboard.weekly.average_daily_screen) }}<small>h/day</small>{% else %}—{% endif %}</strong>
+                        <p>Based on {{ progress_dashboard.weekly.count }} recorded day{% if progress_dashboard.weekly.count != 1 %}s{% endif %}</p>
+                    </div>
+                    <div class="progress-summary-card">
+                        <span>30-DAY AVG SOCIAL</span>
+                        <strong>{% if progress_dashboard.monthly.average_social_media is not none %}{{ "%.2f"|format(progress_dashboard.monthly.average_social_media) }}<small>h/day</small>{% else %}—{% endif %}</strong>
+                        <p>Based only on recorded days</p>
+                    </div>
+                    <div class="progress-summary-card">
+                        <span>30-DAY AVG SLEEP</span>
+                        <strong>{% if progress_dashboard.monthly.average_sleep is not none %}{{ "%.2f"|format(progress_dashboard.monthly.average_sleep) }}<small>h/night</small>{% else %}—{% endif %}</strong>
+                        <p>Missing days are excluded, never set to zero</p>
+                    </div>
+                </div>
+
+                <div class="progress-chart-grid">
+                    <div class="progress-chart-card">
+                        <div class="progress-chart-title">
+                            <div><span>MODEL TREND</span><strong>Risk score • last 90 calendar days</strong></div>
+                            <b>gaps = missing</b>
+                        </div>
+                        <canvas id="riskProgressChart" height="190" data-points='{{ progress_dashboard.timeline | tojson }}'></canvas>
+                    </div>
+                    <div class="progress-chart-card">
+                        <div class="progress-chart-title">
+                            <div><span>SCREEN HABIT</span><strong>Daily screen time • last 90 calendar days</strong></div>
+                            <b>hours/day</b>
+                        </div>
+                        <canvas id="screenProgressChart" height="190" data-points='{{ progress_dashboard.timeline | tojson }}'></canvas>
+                    </div>
+                </div>
+
+                <div class="month-compare-head">
+                    <div>
+                        <span>30-DAY COMPARISON</span>
+                        <h4>Current 30 days vs previous 30 days</h4>
+                    </div>
+                    {% if not progress_dashboard.has_month_comparison %}
+                    <p>More recorded days are needed across both windows for comparison.</p>
+                    {% endif %}
+                </div>
+
+                <div class="month-compare-grid">
+                    {% for key, label in [("risk", "Model Risk Score"), ("screen", "Daily Screen Time"), ("social", "Social Media"), ("sleep", "Sleep")] %}
+                    {% set change = progress_dashboard.comparison[key] %}
+                    <div class="month-compare-card">
+                        <span>{{ label }}</span>
+                        {% if change.delta is not none %}
+                        <strong class="change-{{ change.direction }}">
+                            {% if change.delta > 0 %}↑{% elif change.delta < 0 %}↓{% else %}→{% endif %}
+                            {{ "%.1f"|format(change.delta|abs) }} {{ change.unit }}
+                        </strong>
+                        <p>Current: {{ change.current }} • Previous: {{ change.previous }}{% if change.percent is not none %} • {{ "%.1f"|format(change.percent|abs) }}% change{% endif %}</p>
+                        {% else %}
+                        <strong class="change-waiting">Collecting data</strong>
+                        <p>Comparison uses recorded days only.</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="progress-empty">
+                    <div>↗</div>
+                    <h4>Your account is ready for longitudinal tracking.</h4>
+                    <p>Complete today's analysis. When you return and sign in later, your stored history will still be here.</p>
+                </div>
+                {% endif %}
+
+                <div class="recent-snapshots">
+                    <div class="recent-snapshots-head">
+                        <span>LAST 7 CALENDAR DAYS</span>
+                        <p>Missing dates are shown explicitly rather than filled with artificial zeros.</p>
+                    </div>
+                    <div class="snapshot-table-wrap">
+                        <table class="snapshot-table">
+                            <thead>
+                                <tr><th>Date</th><th>Status</th><th>Risk</th><th>Screen</th><th>Social</th><th>Sleep</th></tr>
+                            </thead>
+                            <tbody>
+                                {% for row in progress_dashboard.checkin_calendar[-7:]|reverse %}
+                                <tr class="{% if not row.recorded %}snapshot-missing{% endif %}">
+                                    <td>{{ row.date }}</td>
+                                    <td>{% if row.recorded %}<span class="status-complete">Completed</span>{% elif row.eligible %}<span class="status-missing">No data entered</span>{% else %}<span class="status-before">Before tracking</span>{% endif %}</td>
+                                    {% if row.recorded %}
+                                    <td>{{ "%.1f"|format(row.risk) }}</td>
+                                    <td>{{ "%.2f"|format(row.screen) }} h</td>
+                                    <td>{{ "%.2f"|format(row.social) }} h</td>
+                                    <td>{{ "%.2f"|format(row.sleep) }} h</td>
+                                    {% else %}
+                                    <td>—</td><td>—</td><td>—</td><td>—</td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="progress-notes">
+                    <p><b>Storage:</b> {{ progress_dashboard.tracking_note }}</p>
+                    <p><b>Missing data:</b> {{ progress_dashboard.missing_note }}</p>
+                    <p><b>Interpretation:</b> {{ progress_dashboard.science_note }}</p>
+                </div>
+            </article>
+        </section>
+
+    </main>
+
+
+    <footer>
+        <div class="logo">
+            <span class="logo-symbol">W</span>
+            <span><strong>Wellbeing AI</strong><small>Digital Wellness Analyzer</small></span>
+        </div>
+        <p>Competition prototype • Explainable ML • Local-first</p>
+    </footer>
+
+    <!-- =========================================================
+         Focus Sound Space
+         Optional, non-clinical audio support for focus/relaxation.
+         ========================================================= -->
+    <section class="focus-sound-panel" id="focusSoundPanel" aria-hidden="true">
+        <div class="focus-sound-backdrop" data-sound-close></div>
+
+        <div class="focus-sound-shell" role="dialog" aria-modal="false" aria-labelledby="focusSoundTitle">
+            <div class="focus-sound-head">
+                <div>
+                    <div class="sound-version-row">
+                        <span class="sound-eyebrow">FOCUS SOUND SPACE</span>
+                        <b class="sound-version-badge">PURE NATURE MIX V3</b>
+                    </div>
+                    <h2 id="focusSoundTitle">Choose the sound your brain prefers.</h2>
+                    <p>
+                        Optional background audio for focus, masking distractions, or unwinding.
+                        It is not an ADHD treatment, diagnosis, or substitute for professional care.
+                    </p>
+                </div>
+
+                <button class="sound-close" type="button" data-sound-close aria-label="Close Focus Sound Space">×</button>
+            </div>
+
+            
+            <div class="sound-new-feature-strip">
+                <div>
+                    <span>NEW</span>
+                    <strong>Pure Nature + Focus Noise + Mix Studio + Always</strong>
+                </div>
+                <div class="sound-feature-status">
+                    <b>14+ sounds</b>
+                    <b>Multi-layer mix</b>
+                    <b>Always playback</b>
+                </div>
+            </div>
+
+            <div class="sound-view-tabs" role="tablist" aria-label="Focus sound categories">
+                <button type="button" class="sound-view-tab" data-sound-view="focus">
+                    Focus / Noise
+                </button>
+                <button type="button" class="sound-view-tab is-active" data-sound-view="nature">
+                    🌿 Pure Nature
+                </button>
+                <button type="button" class="sound-view-tab" data-sound-view="mix">
+                    🎚 Mix Studio
+                </button>
+            </div>
+
+            <div class="sound-personalizer sound-view-section" data-view-section="focus">
+                <div class="sound-question">
+                    <span>Optional context</span>
+                    <h3>Do you have ADHD or high ADHD symptoms?</h3>
+                    <div class="sound-choice-row" data-sound-question="adhd">
+                        <button type="button" data-value="yes">Yes</button>
+                        <button type="button" data-value="no">No</button>
+                        <button type="button" data-value="prefer-not">Prefer not to say</button>
+                    </div>
+                </div>
+
+                <div class="sound-question">
+                    <span>What do you want help with right now?</span>
+                    <div class="sound-choice-row sound-goal-row" data-sound-question="goal">
+                        <button type="button" data-value="focus">Low focus</button>
+                        <button type="button" data-value="busy-mind">Busy / overthinking mind</button>
+                        <button type="button" data-value="relax">Relax / decompress</button>
+                        <button type="button" data-value="study">Study / work</button>
+                    </div>
+                </div>
+
+                <div class="sound-recommendation" id="soundRecommendation">
+                    Choose an option above and I’ll highlight a few sounds worth trying.
+                </div>
+            </div>
+
+            <div class="sound-now-playing">
+                <div class="sound-visualizer" id="soundVisualizer" aria-hidden="true">
+                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+
+                <div class="now-playing-copy">
+                    <span>NOW PLAYING</span>
+                    <strong id="nowPlayingName">Nothing yet</strong>
+                    <small id="nowPlayingNote">Pick a sound card below.</small>
+                </div>
+
+                <div class="sound-control-buttons">
+                    <button class="sound-master-toggle" id="soundMasterToggle" type="button" disabled>Play</button>
+                    <button class="speaker-test-button" id="speakerTestButton" type="button"
+                        data-test-url="{{ url_for('static', filename='audio/speaker_test.wav') }}">
+                        Test speaker
+                    </button>
+                </div>
+
+                <label class="sound-volume">
+                    <span>Volume</span>
+                    <input id="soundVolume" type="range" min="0" max="100" value="32">
+                    <b id="soundVolumeValue">32%</b>
+                </label>
+
+                <div class="always-mode-callout">
+                    <span>∞</span>
+                    <div>
+                        <strong>Always stays on until you pause</strong>
+                        <small>Selected by default in this version.</small>
+                    </div>
+                </div>
+                <label class="sound-timer">
+                    <span>Session</span>
+                    <select id="soundTimer">
+                        <option value="always" selected>Always — until I pause/stop</option>
+                        <option value="0">Off</option>
+                        <option value="15">15 min</option>
+                        <option value="25">25 min</option>
+                        <option value="45">45 min</option>
+                        <option value="60">60 min</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="sound-category-head sound-view-section" data-view-section="focus">
+                <span>FOCUS & COLORED NOISE</span>
+                <h3>Steady sounds for masking distractions</h3>
+                <p>You can play one sound alone or combine it with a nature layer.</p>
+            </div>
+            <div class="sound-library sound-library-focus sound-view-section" data-view-section="focus">
+                <article class="sound-card" data-sound="white" data-audio-url="{{ url_for('static', filename='audio/white.wav') }}">
+                    <div class="sound-card-top">
+                        <span class="sound-symbol">W</span>
+                        <span class="evidence-badge evidence-some">Some evidence</span>
+                    </div>
+                    <h3>White Focus Noise</h3>
+                    <p>Broad-frequency noise that can mask environmental distractions.</p>
+                    <small>Research: small attention benefit in ADHD/high-ADHD-symptom groups in laboratory tasks.</small>
+                    <button class="sound-play-card" type="button">Play / Add to mix</button>
+                </article>
+
+                <article class="sound-card" data-sound="pink" data-audio-url="{{ url_for('static', filename='audio/pink.wav') }}">
+                    <div class="sound-card-top">
+                        <span class="sound-symbol">P</span>
+                        <span class="evidence-badge evidence-some">Some evidence</span>
+                    </div>
+                    <h3>Pink Focus Noise</h3>
+                    <p>Softer than white noise, with less high-frequency energy.</p>
+                    <small>Research: included with white noise in evidence showing a small ADHD-related attention benefit.</small>
+                    <button class="sound-play-card" type="button">Play / Add to mix</button>
+                </article>
+
+                <article class="sound-card" data-sound="brown" data-audio-url="{{ url_for('static', filename='audio/brown.wav') }}">
+                    <div class="sound-card-top">
+                        <span class="sound-symbol">B</span>
+                        <span class="evidence-badge evidence-limited">Limited evidence</span>
+                    </div>
+                    <h3>Deep Brown Noise</h3>
+                    <p>Lower, deeper noise that some people personally find easier to tolerate.</p>
+                    <small>Preference option. Evidence for ADHD-specific benefit is much thinner than for white/pink noise.</small>
+                    <button class="sound-play-card" type="button">Play / Add to mix</button>
+                </article>
+
+                <article class="sound-card" data-sound="rain" data-audio-url="{{ url_for('static', filename='audio/rain.wav') }}">
+                    <div class="sound-card-top">
+                        <span class="sound-symbol">☂</span>
+                        <span class="evidence-badge evidence-relax">Relaxation</span>
+                    </div>
+                    <h3>Soft Rain</h3>
+                    <p>A gentle procedural rain texture for masking small distractions.</p>
+                    <small>Nature-sound research suggests potential stress/relaxation benefits, but individual response varies.</small>
+                    <button class="sound-play-card" type="button">Play / Add to mix</button>
+                </article>
+
+                <article class="sound-card" data-sound="waterfall" data-audio-url="{{ url_for('static', filename='audio/waterfall.wav') }}">
+                    <div class="sound-card-top">
+                        <span class="sound-symbol">≈</span>
+                        <span class="evidence-badge evidence-relax">Relaxation</span>
+                    </div>
+                    <h3>Waterfall Flow</h3>
+                    <p>Continuous water-like sound with a fuller frequency range.</p>
+                    <small>Designed as a calming soundscape, not as a medical intervention.</small>
+                    <button class="sound-play-card" type="button">Play / Add to mix</button>
+                </article>
+
+                <article class="sound-card" data-sound="forest" data-audio-url="{{ url_for('static', filename='audio/forest.wav') }}">
+                    <div class="sound-card-top">
+                        <span class="sound-symbol">✦</span>
+                        <span class="evidence-badge evidence-relax">Nature sound</span>
+                    </div>
+                    <h3>Forest Birds</h3>
+                    <p>Soft wind texture with occasional synthesized bird-like chirps.</p>
+                    <small>Nature sounds can support relaxation for some listeners; concentration effects are not guaranteed.</small>
+                    <button class="sound-play-card" type="button">Play / Add to mix</button>
+                </article>
+
+                <article class="sound-card" data-sound="ocean" data-audio-url="{{ url_for('static', filename='audio/ocean.wav') }}">
+                    <div class="sound-card-top">
+                        <span class="sound-symbol">∿</span>
+                        <span class="evidence-badge evidence-relax">Nature sound</span>
+                    </div>
+                    <h3>Ocean Breathing</h3>
+                    <p>Slow, wave-like filtered noise that rises and falls gently.</p>
+                    <small>Useful as a personal relaxation option; evidence is about nature sound generally, not this exact synthetic track.</small>
+                    <button class="sound-play-card" type="button">Play / Add to mix</button>
+                </article>
+
+                <article class="sound-card" data-sound="ambient" data-audio-url="{{ url_for('static', filename='audio/ambient.wav') }}">
+                    <div class="sound-card-top">
+                        <span class="sound-symbol">♪</span>
+                        <span class="evidence-badge evidence-mixed">Mixed evidence</span>
+                    </div>
+                    <h3>Soft Instrumental Pad</h3>
+                    <p>An original, lyric-free ambient pad generated inside the browser.</p>
+                    <small>Background-music research is mixed; lyrics and complexity can distract some people, so this stays minimal.</small>
+                    <button class="sound-play-card" type="button">Play / Add to mix</button>
+                </article>
+            </div>
+
+            
+            <div class="sound-category-head nature-head sound-view-section is-view-visible" data-view-section="nature">
+                <span>PURE NATURE SOUNDS</span>
+                <h3>Natural-style soundscapes with no colored-noise layer</h3>
+                <p>Each track is clean by itself. Add White/Pink/Brown Noise only if you choose to in Mix Studio.</p>
+            </div>
+
+            
+            <div class="quick-mix-launch sound-view-section" data-view-section="nature">
+                <div>
+                    <span>WANT TO COMBINE SOUNDS?</span>
+                    <strong>Start pure — then add noise only if you want</strong>
+                    <p>Example: Birds Only by itself, or Birds Only + Pink Noise in Mix Studio.</p>
+                </div>
+                <button type="button" id="quickMixButton">Open Mix Studio →</button>
+            </div>
+
+            <div class="sound-library sound-library-nature sound-view-section is-view-visible" data-view-section="nature">
+                <article class="sound-card nature-card" data-sound="drizzle"
+                    data-audio-url="{{ url_for('static', filename='audio/drizzle.wav') }}">
+                    <div class="sound-card-top">
+                        <span class="sound-symbol">☂</span>
+                        <span class="evidence-badge evidence-relax">Nature</span>
+                    </div>
+                    <div class="pure-nature-badge">PURE • NO COLORED NOISE</div><h3>Gentle Drizzle</h3>
+                    <p>Fine, quiet raindrops with a very soft background texture.</p>
+                    <small>Designed for calm background listening rather than ADHD-specific use.</small>
+                    <button class="sound-play-card" type="button">Play / Add to mix</button>
+                </article>
+
+                <article class="sound-card nature-card" data-sound="rain_ground"
+                    data-audio-url="{{ url_for('static', filename='audio/rain_ground.wav') }}">
+                    <div class="sound-card-top">
+                        <span class="sound-symbol">⌁</span>
+                        <span class="evidence-badge evidence-relax">Nature</span>
+                    </div>
+                    <div class="pure-nature-badge">PURE • NO COLORED NOISE</div><h3>Rain on the Ground</h3>
+                    <p>Soft, rounded rain splashes with less high-frequency hiss.</p>
+                    <small>A relaxation/focus preference option; individual response varies.</small>
+                    <button class="sound-play-card" type="button">Play / Add to mix</button>
+                </article>
+
+                <article class="sound-card nature-card" data-sound="rain_leaves"
+                    data-audio-url="{{ url_for('static', filename='audio/rain_leaves.wav') }}">
+                    <div class="sound-card-top">
+                        <span class="sound-symbol">❧</span>
+                        <span class="evidence-badge evidence-relax">Nature</span>
+                    </div>
+                    <div class="pure-nature-badge">PURE • NO COLORED NOISE</div><h3>Rain on Leaves</h3>
+                    <p>Light drops tapping leaves with a softer airy background.</p>
+                    <small>Useful as a calming soundscape if plain noise feels too artificial.</small>
+                    <button class="sound-play-card" type="button">Play / Add to mix</button>
+                </article>
+
+                <article class="sound-card nature-card" data-sound="gentle_stream"
+                    data-audio-url="{{ url_for('static', filename='audio/gentle_stream.wav') }}">
+                    <div class="sound-card-top">
+                        <span class="sound-symbol">≈</span>
+                        <span class="evidence-badge evidence-relax">Nature</span>
+                    </div>
+                    <div class="pure-nature-badge">PURE • NO COLORED NOISE</div><h3>Gentle Stream</h3>
+                    <p>Continuous flowing water with slow natural-style movement.</p>
+                    <small>Designed as a low-complexity relaxation and study background.</small>
+                    <button class="sound-play-card" type="button">Play / Add to mix</button>
+                </article>
+
+                <article class="sound-card nature-card" data-sound="birds_only"
+                    data-audio-url="{{ url_for('static', filename='audio/birds_only.wav') }}">
+                    <div class="sound-card-top">
+                        <span class="sound-symbol">♪</span>
+                        <span class="evidence-badge evidence-relax">Nature</span>
+                    </div>
+                    <div class="pure-nature-badge">PURE • NO COLORED NOISE</div><h3>Birds Only</h3>
+                    <p>Sparse, gentle bird-like chirps with almost no continuous noise bed.</p>
+                    <small>A softer option for users who do not enjoy colored noise.</small>
+                    <button class="sound-play-card" type="button">Play / Add to mix</button>
+                </article>
+
+                <article class="sound-card nature-card" data-sound="gentle_waterfall"
+                    data-audio-url="{{ url_for('static', filename='audio/gentle_waterfall.wav') }}">
+                    <div class="sound-card-top">
+                        <span class="sound-symbol">≋</span>
+                        <span class="evidence-badge evidence-relax">Nature</span>
+                    </div>
+                    <div class="pure-nature-badge">PURE • NO COLORED NOISE</div><h3>Gentle Waterfall</h3>
+                    <p>A smoother waterfall layer with less harsh high-frequency energy.</p>
+                    <small>Designed for long listening sessions at comfortable volume.</small>
+                    <button class="sound-play-card" type="button">Play / Add to mix</button>
+                </article>
+            </div>
+
+            <div class="mix-mode-panel sound-view-section" data-view-section="mix">
+                <div>
+                    <span>MIX MODE</span>
+                    <h3>Layer sounds together</h3>
+                    <p>
+                        Turn Mix Mode on, then tap multiple sounds. Each active layer gets its own volume control.
+                    </p>
+                </div>
+                <button type="button" id="mixModeToggle" class="mix-mode-toggle" aria-pressed="false">
+                    Mix Mode: Off
+                </button>
+            </div>
+
+            <div class="active-mix-panel sound-view-section" data-view-section="mix" id="activeMixPanel" hidden>
+                <div class="active-mix-head">
+                    <div>
+                        <span>ACTIVE MIX</span>
+                        <strong id="activeMixCount">0 layers</strong>
+                    </div>
+                    <button type="button" id="clearMixButton">Clear mix</button>
+                </div>
+                <div id="activeMixLayers" class="active-mix-layers"></div>
+            </div>
+
+            <div class="sound-evidence-note">
+                <div class="sound-evidence-icon">i</div>
+                <div>
+                    <strong>Why the wording is careful</strong>
+                    <p>
+                        A 2024 systematic review/meta-analysis found a <b>small</b> laboratory attention benefit
+                        from white/pink noise in people with ADHD or high ADHD symptoms, while effects were not
+                        beneficial for non-ADHD groups overall. Evidence for brown noise is much more limited.
+                        Nature sounds may help relaxation/stress for some people. Background music results are mixed.
+                        Start quietly, stop if the sound feels irritating or distracting, and protect your hearing.
+                    </p>
+                </div>
+            </div>
+
+            <div class="audio-status" id="audioStatus">
+                Audio files are loaded locally. Click <b>Test speaker</b> to verify browser sound output.
+            </div>
+            <div class="sound-session-tip" id="soundSessionTip">
+                Tip: try one sound for 10–15 minutes at low volume and judge it by your own focus, not by the label.
+            </div>
+        </div>
+    </section>
+
+
+    <div class="focus-mini-player" id="focusMiniPlayer" aria-hidden="true">
+        <div class="mini-sound-wave" id="miniSoundWave"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="mini-sound-copy">
+            <span>FOCUS SOUND</span>
+            <strong id="miniSoundName">Nothing playing</strong>
+        </div>
+        <button type="button" id="miniSoundToggle">Pause</button>
+        <button type="button" id="miniSoundOpen">Open</button>
+        <button type="button" id="miniSoundStop">Stop</button>
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+<script src="{{ url_for('static', filename='focus_sounds.js') }}"></script>
+</body>
+</html>
