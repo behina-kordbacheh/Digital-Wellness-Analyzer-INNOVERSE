@@ -1,0 +1,26 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.env
+.env.*
+*.log
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local private user history
+instance/*.db
+instance/*.db-shm
+instance/*.db-wal
+instance/*.sqlite
+instance/*.sqlite3
+
+# Generated per-user reports (keep the included judge samples)
+reports/digital_wellness_report_*.pdf
+
+# Local interaction test artifacts
+_interaction_test.html
+interaction_test.html
+instance/.session_secret
