@@ -274,3 +274,14 @@ python seed_demo_progress.py
 ```
 
 The script creates the local account `JudgeDemo` and prints its demo-only password. Several dates are intentionally skipped so judges can see that missing check-ins are represented honestly. The seeded history is synthetic and must not be described as real user data.
+
+
+## 🥈 Awards & Achievements
+
+**Silver Medal — INNOVERSE Invention & Innovation Expo 2026**
+
+Artificial Intelligence Challenges | Georgia, USA
+
+[View Silver Medal Certificate](USA-CERTIFICATE-SILVER.pdf)
+
+[View Silver Medal Photo](USA-medal-1.pdf)
